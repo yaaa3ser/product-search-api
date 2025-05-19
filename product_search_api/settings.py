@@ -40,10 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    "django.contrib.postgres",
     'rest_framework',
+    'django_redis',
     'debug_toolbar',
-    # 'products',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -111,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Redis configuration for Docker
-REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/1')
+REDIS_URL = os.getenv('REDIS_URL', 'redis://product_search_redis:6379/1')
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
@@ -149,3 +150,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Debug toolbar configuration
+INTERNAL_IPS = ['127.0.0.1']

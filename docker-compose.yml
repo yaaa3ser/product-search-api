@@ -28,6 +28,7 @@ services:
     container_name: product_search_postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     env_file:
       - ./.env
     ports:
@@ -35,8 +36,9 @@ services:
 
 
   redis:
-    image: docker.io/redis:6
+    image: docker.io/redis:7
     container_name: product_search_redis
-
     volumes:
       - redis_data:/data
+    ports:
+    - '6379:6379'
