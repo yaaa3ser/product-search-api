@@ -25,12 +25,15 @@ class ProductSearchView(APIView):
         if cached_results:
             return Response(cached_results)
 
-        # Perform search
-        queryset = Product.objects.search(
-            query=query,
-            category_id=category_id,
-            brand_id=brand_id
-        ).select_related('brand', 'category')
+        if not query:
+            queryset = Product.objects.select_related('brand', 'category').all()
+        else:
+            # Perform search
+            queryset = Product.objects.search(
+                query=query,
+                category_id=category_id,
+                brand_id=brand_id
+            ).select_related('brand', 'category')
 
         # Paginate results
         paginator = self.pagination_class()

@@ -24,7 +24,7 @@ class ProductManager(models.Manager):
         rank = SearchRank(vector, search_query)
 
         # Trigram similarity for misspellings in both English and Arabic
-        trigram_threshold = 0.2
+        trigram_threshold = 0.4
         queryset = self.annotate(
             rank=rank,
             similarity_name=TrigramSimilarity('name', query),
