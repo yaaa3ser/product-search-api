@@ -22,8 +22,8 @@ class ProductSearchView(APIView):
         cache_key = f"search:{query}:{category_id}:{brand_id}"
         cached_results = cache.get(cache_key)
         
-        if cached_results:
-            return Response(cached_results)
+        # if cached_results:
+        #     return Response(cached_results)
 
         if not query:
             queryset = Product.objects.select_related('brand', 'category').all()
